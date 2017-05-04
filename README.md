@@ -1,6 +1,6 @@
-Generated Seed-UI for Angular4 
+Seed-UI for Angular4 
 ================
-This generated HTML5 UI uses a new tech stack and development process:
+This seed-ui uses a new tech stack and development process:
 - Angular 4, see http://angularjs.blogspot.com/2017/03/angular-400-now-available.html
 - Typescript, see https://www.typescriptlang.org/docs/tutorial.html
 - VMware Clarity, see https://vmware.github.io/clarity/

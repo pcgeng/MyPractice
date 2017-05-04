@@ -45,7 +45,7 @@
       Create the war bundle.
       FOR PRODUCTION, replace ng-build by ng-build-prod below.
     -->
-   <target name="make-bundle"  depends="clean, ng-build">
+   <target name="make-bundle"  depends="clean, ng-build-prod">
       <mkdir dir="${BUILD_DIR}/${WAR_NAME}/"/>
       <copy todir="${BUILD_DIR}/${WAR_NAME}">
          <fileset dir="${DIST_DIR}"/>
