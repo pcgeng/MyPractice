@@ -22,7 +22,8 @@ npm install
 # start json-server to get mock data and load local message bundles
 npm run json-server
 
-# run the H5 UI on port 4201 in dev mode and watches your files for live-reload
+# run the seed-ui on port 4321 in dev mode and watches your files for live-reload
+# Go to http://localhost:4321/main
 npm start
 ```
 
