@@ -1,0 +1,12 @@
+.plugin-modal-footer {
+  @extend .modal-footer !optional;
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 24px;
+}
+
+.floating-left {
+  float: left;
+  position: absolute;
+  z-index: 3;
+}

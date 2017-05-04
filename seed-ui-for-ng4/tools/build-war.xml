@@ -1,0 +1,61 @@
+<project name="seed-ui-for-ng4" basedir="./../" default="make-bundle">
+   <description>
+       Ant build script for HTML plugin. It outputs a .war file that can be
+       copied in the "plugins" folder of the plugin-package.
+       -----------------------------------------------------------------------
+       NOTE: you don't need to use this script during development with Eclipse
+       except to compile resources, see the compile-resources target below.
+       -----------------------------------------------------------------------
+   </description>
+
+   <!-- Properties specific to this project -->
+   <property name="PROJECT_NAME" value="seed-ui-for-ng4"/>
+
+   <!-- SDK home folders should be set in environment variables -->
+   <property environment="env"/>
+
+   <property name="BUILD_DIR" value="${basedir}/target"/>
+   <property name="SRC_DIR" value="${basedir}/src"/>
+   <property name="WEBAPP_DIR" value="${basedir}/src/webapp"/>
+   <property name="DIST_DIR" value="${basedir}/dist"/>
+   <property name="WAR_NAME" value="${PROJECT_NAME}-1.0.0"/>
+
+   <!-- clean the generated build files -->
+   <target name="clean">
+      <delete dir="${BUILD_DIR}" />
+   </target>
+
+   <!-- normal build -->
+   <target name="ng-build">
+      <exec executable="ng.cmd">
+         <arg value="build"/>
+      </exec>
+   </target>
+
+   <!-- production build, including the AOT option required to lazy loaded modules -->
+   <target name="ng-build-prod">
+      <exec executable="ng.cmd">
+         <arg value="build"/>
+         <arg value="--prod"/>
+         <arg value="--aot"/>
+      </exec>
+   </target>
+
+   <!--
+      Create the war bundle.
+      FOR PRODUCTION, replace ng-build by ng-build-prod below.
+    -->
+   <target name="make-bundle"  depends="clean, ng-build">
+      <mkdir dir="${BUILD_DIR}/${WAR_NAME}/"/>
+      <copy todir="${BUILD_DIR}/${WAR_NAME}">
+         <fileset dir="${DIST_DIR}"/>
+         <fileset dir="${SRC_DIR}/webapp"/>
+      </copy>
+
+      <jar destfile="${BUILD_DIR}/${WAR_NAME}.war"
+           basedir="${BUILD_DIR}/${WAR_NAME}">
+      </jar>
+   </target>
+
+</project>
+

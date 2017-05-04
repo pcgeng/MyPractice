@@ -1,0 +1,94 @@
+{
+  "echos": [
+    {
+      "message": "World!",
+      "id": 1
+    },
+    {
+      "message": "World!",
+      "id": 2
+    },
+    {
+      "message": "World!",
+      "id": 3
+    },
+    {
+      "message": "World!",
+      "id": 4
+    },
+    {
+      "message": "World!",
+      "id": 5
+    },
+    {
+      "message": "World!",
+      "id": 6
+    },
+    {
+      "message": "World!",
+      "id": 7
+    },
+    {
+      "message": "World!",
+      "id": 8
+    },
+    {
+      "message": "World!",
+      "id": 9
+    },
+    {
+      "message": "World!",
+      "id": 10
+    },
+    {
+      "message": "World!",
+      "id": 11
+    },
+    {
+      "message": "World!",
+      "id": 12
+    },
+    {
+      "message": "Hello World!",
+      "id": 13
+    },
+    {
+      "message": "Hello World!",
+      "id": 14
+    },
+    {
+      "message": "Hello World!",
+      "id": 15
+    }
+  ],
+  "hosts": [
+    {
+      "id": 1,
+      "name": "mock-Host 1",
+      "status": "yellow",
+      "model": "VMware Virtual Platform",
+      "vmCount": 10
+    },
+    {
+      "id": 2,
+      "name": "mock-Host 2",
+      "status": "green",
+      "model": "VMware Virtual Platform",
+      "vmCount": 2
+    },
+    {
+      "id": 3,
+      "name": "mock-Host 3",
+      "status": "red",
+      "model": "VMware Virtual Platform",
+      "vmCount": 33
+    },
+    {
+      "id": 4,
+      "name": "mock-Host 4",
+      "status": "red",
+      "model": "VMware Virtual Platform",
+      "vmCount": 0
+    }
+  ]
+}

@@ -1,0 +1,106 @@
+<app-alert></app-alert>
+
+<!-- Dev mode header -->
+<app-header *ngIf="gs.showDevUI()" ></app-header>
+
+<!-- ---------------------------- Main view content -------------------------------- -->
+
+<div class="main-container">
+
+   <div class="content-container">
+      <clr-tabs style="width: 100%" (clrTabsCurrentTabLinkChanged)="onTabSelected($event)">
+         <clr-tab-link [clrTabLinkId]="'mainTab'" style="padding-left: 10px;">Echo Service</clr-tab-link>
+         <clr-tab-link [clrTabLinkId]="'chassisTab'">Chassis List</clr-tab-link>
+
+         <!-- ------------------- Main tab ---------------------- -->
+
+         <clr-tab-content>
+            <div class="content-area">
+               <p style="padding-bottom: 10px">{{i18n.translate("mainView.content")}}</p>
+               <div class="card-columns card-columns-2">
+                  <div class="card clickable">
+                     <div class="card-header">
+                        {{i18n.translate("mainView.serviceTest")}}
+                     </div>
+                     <div class="card-block">
+                        {{i18n.translate("mainView.clickToCall")}}
+                        <p>
+                           <a (click)="sendEcho(true)" class="btn">{{i18n.translate("mainView.helloBtn1")}}</a>
+                           <a (click)="sendEcho(false)" class="btn">{{i18n.translate("mainView.helloBtn2")
+                              }}</a>
+                        </p>
+                     </div>
+                  </div>
+               </div>
+               <button (click)="nav.showSettingsView()" class="btn btn-link">{{i18n.translate("gotoSettings")}}</button>
+               <div *ngIf="gs.showDevUI()" class="dev-ui">
+                  <clr-icon shape="info" size="24"></clr-icon>
+                  This is the plugin's main view, used for global information and actions.<br/>
+                  EchoService is an example of Java service running on the backend.
+               </div>
+            </div>
+         </clr-tab-content>
+
+         <!-- ------------------- Chassis tab ------------------[removable-chassis-code] -->
+
+         <clr-tab-content>
+            <div class="content-area">
+               <img src="./assets/images/chassis_image.png" style="float: left" width="400">
+               <a (click)="editChassis()" class="btn btn-link">
+                  {{i18n.translate("chassis.createAction")}}
+               </a>
+               <br/><clr-icon shape="ellipsis-vertical" size="24"></clr-icon>{{i18n.translate("useLeftMenu")}}
+
+               <clr-datagrid>
+                  <clr-dg-column [clrDgField]="'name'">{{i18n.translate("header.name")}}</clr-dg-column>
+                  <clr-dg-column>{{i18n.translate("header.dimensions")}}</clr-dg-column>
+                  <clr-dg-column [clrDgField]="'serverType'">{{i18n.translate("header.serverType")}}</clr-dg-column>
+
+                  <clr-dg-row *clrDgItems="let chassis of chassisList" [clrDgItem]="chassis">
+                     <clr-dg-action-overflow>
+                        <button class="action-item" (click)="gotoChassis(chassis)">{{i18n.translate("menu.goto")}}</button>
+                        <button class="action-item" (click)="editChassis(chassis)">{{i18n.translate("menu.edit")}}</button>
+                        <button class="action-item" (click)="deleteChassis(chassis)">{{i18n.translate("menu.delete")}}</button>
+                     </clr-dg-action-overflow>
+
+                     <clr-dg-cell>{{chassis.name}}</clr-dg-cell>
+                     <clr-dg-cell>{{chassis.dimensions}}</clr-dg-cell>
+                     <clr-dg-cell>{{chassis.serverType}}</clr-dg-cell>
+                  </clr-dg-row>
+
+                  <clr-dg-footer>
+                     {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}}
+                     of {{pagination.totalItems}} chassis
+                     <clr-dg-pagination #pagination [clrDgPageSize]="10"></clr-dg-pagination>
+                  </clr-dg-footer>
+               </clr-datagrid>
+            </div>
+         </clr-tab-content>
+      </clr-tabs>
+      <!-- Dev mode sidenav to facilitate object navigation -->
+      <sidenav *ngIf="gs.showSidenav()" style="order:-1"></sidenav>
+
+   </div>
+</div>
+
+<!--
+   Modal dialog for the echoService response. Two implementations are provided below:
+   1) The first one with <dialog-box> creates a real modal dialog in the vSphere Client
+   2) The second one with <crl-modal> creates a popup modal only within the plugin view.
+   => You must choose between having a client-wide modal dialog with limited API
+      and a simple local popup for small or static content (such as this echo response)
+   => Note that in dev mode both dialogs look the same.
+-->
+<dialog-box *ngIf="!gs.isPluginMode()"></dialog-box>
+
+<clr-modal [(clrModalOpen)]="echoModalOpened" [clrModalStaticBackdrop]="true">
+   <h3 class="modal-title">{{i18n.translate("mainView.echoResponse")}}</h3>
+   <div class="modal-body">
+      <p>{{echoMsg}}</p>
+      <p>{{i18n.translate("mainView.popup1.text")}}</p>
+   </div>
+   <div class="modal-footer">
+      <button type="submit" class="btn btn-primary" (click)="onSubmitEcho()">{{i18n.translate("button.ok")}}</button>
+   </div>
+</clr-modal>
+
